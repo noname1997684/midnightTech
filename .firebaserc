@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "e-commerce-ecb66"
+  },
+  "targets": {},
+  "etags": {
+    "e-commerce-ecb66": {
+      "extensionInstances": {
+        "firestore-stripe-payments": "cde9a3f4c779d3f13dd64f4427255718d3cbc57b484d6ba79d4e2e06f8216a8b"
+      }
+    }
+  }
+}
