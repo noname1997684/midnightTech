@@ -1,7 +1,11 @@
 "use client";
 
 import { useAuth } from "@/contexts/AuthContext";
-import { createCheckoutAndGetURL, createCheckoutCODAndGetId } from "@/lib/firestore/checkout/write";
+import {
+  createCheckoutAndGetURL,
+  createCheckoutCODAndGetId,
+} from "@/lib/firestore/checkout/write";
+import { useUser } from "@/lib/firestore/user/read";
 import { Button } from "@heroui/react";
 import confetti from "canvas-confetti";
 
@@ -12,55 +16,80 @@ import toast from "react-hot-toast";
 
 const Checkout = ({ producList }) => {
   const [paymentMode, setPaymentMode] = useState("prepaid");
-  const [address, setAddress] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
-  const router =useRouter()
-  const {user}= useAuth()
+  const router = useRouter();
+  const { user } = useAuth();
+  const { data: userData } = useUser(user?.uid);
+  const [address, setAddress] = useState({
+    fullName: userData?.displayName || "",
+    mobile: userData?.phoneNumber || "",
+    email: userData?.email || "",
+    addressLine1: userData?.address?.addressLine1 || "",
+    addressLine2: userData?.address?.addressLine2 || "",
+    pincode: userData?.address?.pincode || "",
+    city: userData?.address?.city || "",
+    state: userData?.address?.state || "",
+    orderNote: userData?.address?.orderNote || "",
+  });
+  console.log(userData);
   const totalPrice = producList.reduce((acc, item) => {
     return acc + item.product.salePrice * item.quantity;
   }, 0);
 
-  const handleAddress =(key, value) => {
+  const handleAddress = (key, value) => {
     setAddress((prev) => ({
       ...prev,
       [key]: value,
     }));
-  }
+  };
 
-  const handlePlaceOrder =async () => {
+  const handlePlaceOrder = async () => {
     setIsLoading(true);
-    
+
     try {
-        if(totalPrice <= 0) {
-            throw new Error("Total price must be greater than zero.");
-        }
-        if(!address || !address.fullName || !address.mobile || !address.email || !address.addressLine1 || !address.pincode || !address.city || !address.state) {
-            throw new Error("Please fill all the address fields.");
-        }
+      if (totalPrice <= 0) {
+        throw new Error("Total price must be greater than zero.");
+      }
+      if (
+        !address ||
+        !address.fullName ||
+        !address.mobile ||
+        !address.email ||
+        !address.addressLine1 ||
+        !address.pincode ||
+        !address.city ||
+        !address.state
+      ) {
+        throw new Error("Please fill all the address fields.");
+      }
 
-        if(!producList || producList.length === 0) {
-            throw new Error("No products in the cart.");
-        }
+      if (!producList || producList.length === 0) {
+        throw new Error("No products in the cart.");
+      }
 
-        if(paymentMode === "prepaid") {
-          const url=await createCheckoutAndGetURL(user.uid, producList,address)
-          router.push(url);
-        } else{
-            const checkoutId = await createCheckoutCODAndGetId(user.uid, producList,address)
-          router.push(`/checkout-cod?checkout_id=${checkoutId}`)
-        }
-        toast.success("Order placed successfully!"); 
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-        })
+      if (paymentMode === "prepaid") {
+        const url = await createCheckoutAndGetURL(
+          user.uid,
+          producList,
+          address
+        );
+        router.push(url);
+      } else {
+        const checkoutId = await createCheckoutCODAndGetId(
+          user.uid,
+          producList,
+          address
+        );
+        router.push(`/checkout-cod?checkout_id=${checkoutId}`);
+      }
     } catch (error) {
-        toast.error("Failed to place order. Please try again later." + error.message);
-    } finally{
-        setIsLoading(false);
+      toast.error(
+        "Failed to place order. Please try again later." + error.message
+      );
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <section className="flex gap-3 flex-col md:flex-row">
@@ -217,7 +246,14 @@ const Checkout = ({ producList }) => {
               <span className="text-blue-700">term & conditions</span>
             </h4>
           </div>
-          <Button isLoading={isLoading} isDisabled={isLoading} onClick={handlePlaceOrder} className="bg-black text-white">Place Order</Button>
+          <Button
+            isLoading={isLoading}
+            isDisabled={isLoading}
+            onClick={handlePlaceOrder}
+            className="bg-black text-white"
+          >
+            Place Order
+          </Button>
         </section>
       </div>
     </section>

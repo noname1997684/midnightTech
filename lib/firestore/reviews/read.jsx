@@ -1,5 +1,11 @@
 "use client";
-import { collection, collectionGroup, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  collectionGroup,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import useSWRSubscription from "swr/subscription";
 import { db } from "../firebase";
 
@@ -7,7 +13,7 @@ export function useReviews(productId) {
   const { data, error } = useSWRSubscription(
     [`products/${productId}/reviews`],
     ([path], { next }) => {
-      const ref =query(collection(db, path),orderBy("timestamp","desc"));
+      const ref = query(collection(db, path), orderBy("timestamp", "desc"));
       const unsub = onSnapshot(
         ref,
         (snapshot) =>
@@ -17,13 +23,44 @@ export function useReviews(productId) {
               ? null
               : snapshot.docs.map((snap) => snap.data())
           ),
-        (err) => next(err,null)
+        (err) => next(err, null)
       );
       return () => unsub();
     }
   );
 
-  return {data,error: error?.message,isLoading: data === undefined};
+  return { data, error: error?.message, isLoading: data === undefined };
+}
+export function useReviewsBlog(blogId) {
+  const { data, error } = useSWRSubscription(
+    [`blogs/${blogId}/reviews`],
+    ([path], { next }) => {
+      const ref = query(collection(db, path), orderBy("timestamp", "desc"));
+      const unsub = onSnapshot(
+        ref,
+        (snapshot) =>
+          next(
+            null,
+            snapshot.docs.length === 0
+              ? null
+              : snapshot.docs.map((snap) => snap.data())
+          ),
+        (err) => next(err, null)
+      );
+      return () => unsub();
+    }
+  );
+
+  return {
+    data: data?.map((review) => ({
+      ...review,
+      timestamp: review.timestamp
+        ? review.timestamp.toDate().toISOString()
+        : null,
+    })),
+    error: error?.message,
+    isLoading: data === undefined,
+  };
 }
 
 export function useAllReviews() {
@@ -40,11 +77,11 @@ export function useAllReviews() {
               ? null
               : snapshot.docs.map((snap) => snap.data())
           ),
-        (err) => next(err,null)
+        (err) => next(err, null)
       );
       return () => unsub();
     }
   );
 
-  return {data,error: error?.message,isLoading: data === undefined};
+  return { data, error: error?.message, isLoading: data === undefined };
 }

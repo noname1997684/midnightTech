@@ -18,13 +18,14 @@ const ListView = () => {
     error,
     isLoading,
     lastSnapDoc,
+    length,
   } = useProducts(
     pageLimit,
     lastSnapDocList.length === 0
       ? null
       : lastSnapDocList[lastSnapDocList.length - 1]
   );
-
+  const isLastPage = length < pageLimit;
   const handleNextPage = () => {
     let newStack = [...lastSnapDocList];
     newStack.push(lastSnapDoc);
@@ -113,7 +114,7 @@ const ListView = () => {
           <option value="100">100 items</option>
         </select>
         <Button
-          isDisabled={isLoading || products?.length === 0}
+          isDisabled={isLoading || products?.length === 0 || isLastPage}
           size="sm"
           variant="bordered"
           onClick={handleNextPage}
@@ -159,7 +160,8 @@ function Row({ product, index }) {
         </div>
       </td>
       <td className="border-y bg-white px-3 py-2 whitespace-nowrap">
-        {product.title} {product.isFeatured === true && (
+        {product.title}{" "}
+        {product.isFeatured === true && (
           <span className=" ml-2 bg-gradient-to-tr from-blue-500 to-indigo-400 text-white text-[10px] px-2 py-1 rounded-lg">
             Featured
           </span>

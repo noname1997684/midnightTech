@@ -3,7 +3,11 @@ import { useAuth } from "@/contexts/AuthContext";
 import { auth } from "@/lib/firestore/firebase";
 import { createUser } from "@/lib/firestore/user/write";
 import { Button } from "@heroui/react";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -73,7 +77,7 @@ const page = () => {
               className="px-3 py-2 rounded-xl border focus:outline-none w-full"
             />
             <Button
-              color="primary"
+              color="secondary"
               type="submit"
               isLoading={loading}
               isDisabled={loading}
@@ -83,12 +87,12 @@ const page = () => {
           </form>
           <div className="flex justify-between">
             <Link href={"/sign-up"}>
-              <button className="font-semibold text-sm text-blue-700">
+              <button className="font-semibold text-sm text-violet-700">
                 New? Create Account
               </button>
             </Link>
             <Link href={"/forget-password"}>
-              <button className="font-semibold text-sm text-blue-700">
+              <button className="font-semibold text-sm text-violet-700">
                 Forget Password?
               </button>
             </Link>
@@ -125,7 +129,7 @@ function SignInWithGoogleComponent() {
 
   return (
     <Button
-      color="secondary"
+      color="primary"
       onClick={handleLogin}
       isLoading={isLoading}
       isDisabled={isLoading}

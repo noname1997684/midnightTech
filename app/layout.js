@@ -17,7 +17,12 @@ const geistMono = localFont({
 
 export const metadata = {
   title: "E Commerce Website",
-  description: "An E Commerce Website built with Next.js, React, and Tailwind CSS",
+  description:
+    "An E Commerce Website built with Next.js, React, and Tailwind CSS",
+  icons: {
+    icon: "/icon.png", // favicon mặc định
+    shortcut: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -26,11 +31,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Toaster/>
-        <HeroUIProvider>
-
-        {children}
-        </HeroUIProvider>
+        <Toaster />
+        <HeroUIProvider>{children}</HeroUIProvider>
       </body>
     </html>
   );

@@ -16,6 +16,13 @@ export const getBrand= async (id) => {
 export const getBrands= async () => {
   
     const list =await getDocs(collection(db, "brands"));
-    return list.docs.map((snap)=>snap.data());
+    return list.docs.map((snap)=>{
+          const data = snap.data();
+        return {
+            ...data,
+            id: snap.id,
+            timestampCreate: data.timestampCreate ? data.timestampCreate.toDate().toISOString()  : null,
+        }
+    });
 
 }

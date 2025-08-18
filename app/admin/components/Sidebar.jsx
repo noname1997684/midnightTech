@@ -13,6 +13,7 @@ import {
   ShoppingCart,
   Star,
   User,
+  FileImage,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -61,16 +62,21 @@ const Sidebar = () => {
       icon: <Library />,
     },
     {
+      name: "blogs",
+      link: "/admin/blogs",
+      icon: <FileImage />,
+    },
+    {
       name: "Admins",
       link: "/admin/admins",
       icon: <ShieldUser />,
     },
   ];
   return (
-    <section className="sticky top-0 bg-white border-r gap-10 px-5 py-3 h-screen overflow-hidden w-[260px] z-[1000] flex flex-col  justify-between">
+    <section className="sticky top-0 bg-white border-r gap-5 px-5 py-3 h-screen overflow-hidden w-[260px] z-50 flex flex-col  justify-between">
       <div className="flex justify-center py-4">
         <Link href={"/"}>
-        <img className="h-8" src="/logo.png" alt="logo" />
+          <img className="h-8" src="/logo.png" alt="logo" />
         </Link>
       </div>
       <ul className="flex-1 flex h-full overflow-y-auto flex-col gap-4">
@@ -79,17 +85,20 @@ const Sidebar = () => {
         })}
       </ul>
       <div className="flex justify-center ">
-        <button className="flex items-center gap-3 font-semibold px-3 py-2 hover:bg-indigo-100 rounded-xl w-full ease-soft-spring transition-all duration-300 " onClick={async()=>{
+        <button
+          className="flex items-center gap-3 font-semibold px-3 py-2 hover:bg-indigo-100 rounded-xl w-full ease-soft-spring transition-all duration-300 "
+          onClick={async () => {
             try {
-                await toast.promise(signOut(auth),{
-                    error: (e)=>e.message,
-                    loading: "Logging out...",
-                    success: "Logged out successfully"
-                })
+              await toast.promise(signOut(auth), {
+                error: (e) => e.message,
+                loading: "Logging out...",
+                success: "Logged out successfully",
+              });
             } catch (error) {
-                toast.error("Logout failed" + error.message);
+              toast.error("Logout failed" + error.message);
             }
-        }}>
+          }}
+        >
           <LogOut />
           Logout
         </button>
@@ -100,7 +109,7 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const Tab = ({ item }) => {
+export const Tab = ({ item }) => {
   const pathname = usePathname();
   const isSelected = pathname === item.link;
   return (

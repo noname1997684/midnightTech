@@ -2,19 +2,97 @@
 
 import { useBrands } from "@/lib/firestore/brands/read";
 import { useCategories } from "@/lib/firestore/categories/read";
+import {
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@heroui/react";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
 
-const BasicDetails = ({data,handleData}) => {
-  const {data:brands}= useBrands();
-  const {data: categories}= useCategories()
+const BasicDetails = ({
+  data,
+  handleData,
+  setChoice,
+  choicesList,
+  choice,
+  generateBotResponse,
+  AILoading,
+}) => {
+  const { data: brands } = useBrands();
+  const { data: categories } = useCategories();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <section className=" flex flex-1 flex-col gap-3 bg-white rounded-xl p-4 border ">
-      <h1 className="font-semibold">Basic Details</h1>
+      <div className="flex items-center justify-between ">
+        <h1 className="font-semibold">Basic Details</h1>
+        <Button
+          isIconOnly
+          radius="full"
+          variant="ghost"
+          onPress={onOpen}
+          isLoading={AILoading}
+          isDisabled={AILoading}
+        >
+          <SmartToyIcon color="secondary" />
+        </Button>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1 items-center">
+                  Create New Product With AI
+                </ModalHeader>
+                <ModalBody>
+                  <h1>
+                    How would you like AI to support you in creating your
+                    product?
+                  </h1>
+                  <h2 className="text-red-500 text-sm">
+                    *Please make sure to enter the product name before
+                    generating.
+                  </h2>
+                  <CheckboxGroup
+                    value={choice}
+                    onChange={(value) => {
+                      setChoice(value);
+                    }}
+                    label="Select Fields"
+                  >
+                    {choicesList.map((item) => (
+                      <Checkbox key={item.value} value={item.value}>
+                        {item.name}
+                      </Checkbox>
+                    ))}
+                  </CheckboxGroup>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    color="primary"
+                    onPress={() => {
+                      generateBotResponse(choice);
+                      onClose();
+                    }}
+                  >
+                    Generate
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      </div>
       <div className="flex flex-col gap-1">
         <label className="text-gray-500 text-xs" htmlFor="product-title">
           Product Name <span className="text-red-500">*</span>
         </label>
         <input
-        required
+          required
           type="text"
           placeholder="Enter Title"
           id="product-title"
@@ -25,11 +103,14 @@ const BasicDetails = ({data,handleData}) => {
         />
       </div>
       <div className="flex flex-col gap-1">
-        <label className="text-gray-500 text-xs" htmlFor="product-short-description">
-           Short Description <span className="text-red-500">*</span>
+        <label
+          className="text-gray-500 text-xs"
+          htmlFor="product-short-description"
+        >
+          Short Description <span className="text-red-500">*</span>
         </label>
         <input
-        required
+          required
           type="text"
           placeholder="Enter Short Description"
           id="product-short-description"
@@ -41,7 +122,7 @@ const BasicDetails = ({data,handleData}) => {
       </div>
       <div className="flex flex-col gap-1">
         <label className="text-gray-500 text-xs" htmlFor="product-brand">
-           Brand <span className="text-red-500">*</span>
+          Brand <span className="text-red-500">*</span>
         </label>
         <select
           id="product-brand"
@@ -61,7 +142,7 @@ const BasicDetails = ({data,handleData}) => {
       </div>
       <div className="flex flex-col gap-1">
         <label className="text-gray-500 text-xs" htmlFor="product-category">
-           Category <span className="text-red-500">*</span>
+          Category <span className="text-red-500">*</span>
         </label>
         <select
           id="product-category"
@@ -79,12 +160,12 @@ const BasicDetails = ({data,handleData}) => {
           ))}
         </select>
       </div>
-       <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1">
         <label className="text-gray-500 text-xs" htmlFor="product-stock">
-           Stock <span className="text-red-500">*</span>
+          Stock <span className="text-red-500">*</span>
         </label>
         <input
-        required
+          required
           type="number"
           placeholder="Enter Stock"
           id="product-stock"
@@ -94,12 +175,12 @@ const BasicDetails = ({data,handleData}) => {
           className="border px-4 py-2 rounded-lg w-full outline-none"
         />
       </div>
-         <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1">
         <label className="text-gray-500 text-xs" htmlFor="product-price">
-           Price <span className="text-red-500">*</span>
+          Price <span className="text-red-500">*</span>
         </label>
         <input
-        required
+          required
           type="number"
           placeholder="Enter Price"
           id="product-price"
@@ -109,12 +190,12 @@ const BasicDetails = ({data,handleData}) => {
           className="border px-4 py-2 rounded-lg w-full outline-none"
         />
       </div>
-         <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1">
         <label className="text-gray-500 text-xs" htmlFor="product-sale-price">
-           Sale Price <span className="text-red-500">*</span>
+          Sale Price <span className="text-red-500">*</span>
         </label>
         <input
-        required
+          required
           type="number"
           placeholder="Enter Sale Price"
           id="product-sale-price"
@@ -124,17 +205,22 @@ const BasicDetails = ({data,handleData}) => {
           className="border px-4 py-2 rounded-lg w-full outline-none"
         />
       </div>
-        <div className="flex flex-col gap-1">
-        <label className="text-gray-500 text-xs" htmlFor="product-is-featured-product">
+      <div className="flex flex-col gap-1">
+        <label
+          className="text-gray-500 text-xs"
+          htmlFor="product-is-featured-product"
+        >
           Is Featured Product <span className="text-red-500">*</span>
         </label>
         <select
-        required
+          required
           type="number"
           placeholder="Enter Sale Price"
           id="product-is-featured-product"
-           value={data?.isFeatured ? "yes" : "no"}
-          onChange={(e) => handleData("isFeatured", e.target.value=== "yes" ? true : false)}
+          value={data?.isFeatured ? "yes" : "no"}
+          onChange={(e) =>
+            handleData("isFeatured", e.target.value === "yes" ? true : false)
+          }
           name="product-is-featured-product"
           className="border px-4 py-2 rounded-lg w-full outline-none"
         >

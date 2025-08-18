@@ -3,7 +3,11 @@ import { useAuth } from "@/contexts/AuthContext";
 import { auth } from "@/lib/firestore/firebase";
 import { createUser } from "@/lib/firestore/user/write";
 import { Button } from "@heroui/react";
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateProfile,
+} from "firebase/auth";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,7 +20,6 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
-
   const handleData = (key, value) => {
     setData((prev) => ({
       ...prev,
@@ -26,9 +29,9 @@ const page = () => {
   const handleSendEmail = async () => {
     setLoading(true);
     try {
-        await sendPasswordResetEmail(auth, data.email);
-        toast.success("Reset link has been sent to your email");
-  } catch (error) {
+      await sendPasswordResetEmail(auth, data.email);
+      toast.success("Reset link has been sent to your email");
+    } catch (error) {
       toast.error(
         "Something went wrong, please try again later." + error.message
       );
@@ -51,7 +54,6 @@ const page = () => {
             }}
             className="flex flex-col gap-3"
           >
-            
             <input
               type="email"
               name="user-email"
@@ -61,14 +63,19 @@ const page = () => {
               placeholder="Enter your Email"
               className="px-3 py-2 rounded-xl border focus:outline-none w-full"
             />
-           
-            <Button isLoading={loading} isDisabled={loading} type="submit" color="primary">
+
+            <Button
+              isLoading={loading}
+              isDisabled={loading}
+              type="submit"
+              color="secondary"
+            >
               Sent Reset Link
             </Button>
           </form>
           <div className="flex justify-between">
             <Link href={"/login"}>
-              <button className="font-semibold text-sm text-blue-700">
+              <button className="font-semibold text-sm text-violet-700">
                 Sign In
               </button>
             </Link>

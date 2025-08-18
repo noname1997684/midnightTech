@@ -15,6 +15,13 @@ export const getCategory= async (id) => {
 export const getCategories= async () => {
   
     const list =await getDocs(collection(db, "categories"));
-    return list.docs.map((snap)=>snap.data());
+    return list.docs.map((snap)=>{
+         const data = snap.data();
+        return {
+            ...data,
+            id: snap.id,
+            timestampCreate: data.timestampCreate ? data.timestampCreate.toDate().toISOString()  : null,
+        }
+    });
 
 }

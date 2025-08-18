@@ -4,13 +4,13 @@ import Footer from "../components/Footer";
 import AuthContextProvider, { useAuth } from "@/contexts/AuthContext";
 import { CircularProgress } from "@heroui/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const layout = ({ children }) => {
   return (
     <main>
-      <Header />
-
       <AuthContextProvider>
+        <Header />
         <UserChecking>
           <section className="min-h-screen">{children}</section>
         </UserChecking>
@@ -21,6 +21,7 @@ const layout = ({ children }) => {
 };
 
 const UserChecking = ({ children }) => {
+  const pathname = usePathname();
   const { user, isLoading } = useAuth();
   if (isLoading) {
     return (
@@ -31,10 +32,24 @@ const UserChecking = ({ children }) => {
   }
   if (!user) {
     return (
-      <div className="h-screen w-full flex justify-center items-center flex-col gap-3">
-        <h1 className="text-sm text-gray-600">Please login to continue</h1>
+      <div className="h-screen w-full flex justify-center items-center flex-col gap-10">
+        <h1 className="text-2xl text-gray-600 font-bold">
+          Please login to{" "}
+          {pathname === "/favorites"
+            ? "view your favorites"
+            : pathname === "/cart"
+            ? "view your cart"
+            : pathname === "/checkout"
+            ? "proceed to checkout"
+            : pathname === "/account"
+            ? "view your account"
+            : pathname === "/saved"
+            ? "view your saved posts"
+            : "continue"}
+        </h1>
+        <img src="../svg/login.svg" alt="" className="h-64 w-64" />
         <Link href={"/login"}>
-          <button className="text-white bg-blue-500 px-4 py-2 rounded-xl text-sm">
+          <button className="text-white bg-[#7900f5] px-4 py-2 rounded-xl text-md font-semibold hover:bg-[#7900f5]/90 transition-colors duration-300 ease-in-out">
             Login
           </button>
         </Link>

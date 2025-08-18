@@ -56,7 +56,6 @@ export const deleteProduct = async (id) => {
 };
 
 export const updateProduct = async (data, featureImage, images) => {
-    
   if (!data?.title) {
     throw new Error("Title is required");
   }
@@ -64,7 +63,7 @@ export const updateProduct = async (data, featureImage, images) => {
     throw new Error("Product Id is required");
   }
 
-  let newFeatureImageUrl = data?.featureImageURL||null;
+  let newFeatureImageUrl = data?.featureImageURL || null;
   if (featureImage !== newFeatureImageUrl) {
     newFeatureImageUrl = await updateImage(
       newFeatureImageUrl,
@@ -74,24 +73,24 @@ export const updateProduct = async (data, featureImage, images) => {
   }
   let newImagesUrls = [];
 
-   const isImagesChanged =
+  const isImagesChanged =
     images?.length !== data.imagesURLs?.length ||
     !images.every((img, i) => img === data.imagesURLs[i]);
-    console.log("isImagesChanged", isImagesChanged, images, data?.imagesURLs);
- if(isImagesChanged){ 
-  for (const image of data?.imagesURLs) {
-    await deleteImage(image);
-  }
+  console.log("isImagesChanged", isImagesChanged, images, data?.imagesURLs);
+  if (isImagesChanged) {
+    for (const image of data?.imagesURLs) {
+      await deleteImage(image);
+    }
 
-  for (const image of images) {
-    const imageUrl = await uploadImage(image, "products");
-    newImagesUrls.push(imageUrl);
+    for (const image of images) {
+      const imageUrl = await uploadImage(image, "products");
+      newImagesUrls.push(imageUrl);
+    }
   }
- }
   await updateDoc(doc(db, `products/${data.id}`), {
     ...data,
     featureImageURL: newFeatureImageUrl,
-    imagesURLs: isImagesChanged? newImagesUrls : data.imagesURLs,
+    imagesURLs: isImagesChanged ? newImagesUrls : data.imagesURLs,
     timestampUpdate: Timestamp.now(),
   });
 };

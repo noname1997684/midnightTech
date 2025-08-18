@@ -5,6 +5,7 @@ import {
   count,
   getAggregateFromServer,
   getCountFromServer,
+  getDocs,
   query,
   sum,
   where,
@@ -12,6 +13,39 @@ import {
 
 import useSWR from "swr";
 import { db } from "../firebase";
+
+export const useGetOrdersCountByUser = (userId) => {
+  const { data, error, isLoading } = useSWR(
+    ["orders_count_by_user", userId],
+    ([key, userId]) => getOrdersCountByUser(userId)
+  );
+
+  if (error) {
+    console.error("Error fetching orders count by user:", error.message);
+  }
+
+  return {
+    data,
+    error,
+    isLoading,
+  };
+};
+
+export const getOrdersCountByUser = async (userId) => {
+  if (!userId) return { totalOrders: 0, totalRevenue: 0 };
+  const ref = collection(db, `orders`);
+  const snapshot = await getDocs(ref);
+  let totalOrders = 0;
+  let totalRevenue = 0;
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    if (data?.checkout?.metadata?.uid === userId) {
+      totalOrders += 1;
+      totalRevenue += data?.payment?.amount || 0;
+    }
+  });
+  return { totalOrders, totalRevenue };
+};
 
 export const getOrdersCount = async ({ date }) => {
   const ref = collection(db, `orders`);
@@ -66,7 +100,8 @@ const getTotalOrdersCount = async (dates) => {
 export function useOrdersCountByTotalDays({ dates }) {
   const { data, error, isLoading } = useSWR(
     ["orders_count_by_dates", dates],
-    ([key, dates]) => getTotalOrdersCount(dates.sort((a, b) => a.getTime() - b.getTime()))
+    ([key, dates]) =>
+      getTotalOrdersCount(dates.sort((a, b) => a.getTime() - b.getTime()))
   );
   if (error) {
     console.error("Error fetching user count:", error.message);

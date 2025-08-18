@@ -1,19 +1,14 @@
+import CategoryProductGrid from "@/app/(pages)/categories/[categoryId]/components/CategoryProductGrid";
 import { ProductCard } from "@/app/components/Products";
 import { getProductsByCategory } from "@/lib/firestore/products/read_server";
 import React from "react";
 
 const RelatedProducts = async ({ categoryId }) => {
-  const products = await getProductsByCategory(categoryId);
+  const products = await getProductsByCategory(categoryId, 10);
   return (
-    <div className="w-full flex justify-center">
-      <div className="max-w-[900px] p-5 flex flex-col gap-5">
-        <h1 className="text-center font-semibold text-lg">Related Products</h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4  lg:grid-cols-4 ">
-          {products.map((product) => (
-            <ProductCard product={product} key={product.id} />
-          ))}
-        </div>
-      </div>
+    <div className=" flex flex-col items-center justify-center p-5 md:px-10 md:py-5 w-full">
+      <h1 className="text-lg font-semibold mb-5">Related Products</h1>
+      <CategoryProductGrid initialProducts={products} categoryId={categoryId} />
     </div>
   );
 };

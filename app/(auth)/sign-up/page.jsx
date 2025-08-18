@@ -16,7 +16,6 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
-
   const handleData = (key, value) => {
     setData((prev) => ({
       ...prev,
@@ -26,19 +25,23 @@ const page = () => {
   const handleSignUp = async () => {
     setLoading(true);
     try {
-   const credential=   await createUserWithEmailAndPassword(auth, data.email, data.password);
-      await updateProfile(credential.user,{
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      await updateProfile(credential.user, {
         displayName: data.name,
-      })
-    const user = credential.user
+      });
+      const user = credential.user;
       await createUser({
         uid: user.uid,
         displayName: data.name,
-        photoURL: user.photoURL 
-      })
+        photoURL: user.photoURL,
+      });
       router.push("/account");
       toast.success("Account created successfully");
-  } catch (error) {
+    } catch (error) {
       toast.error(
         "Something went wrong, please try again later." + error.message
       );
@@ -88,13 +91,18 @@ const page = () => {
               placeholder="Enter your Password"
               className="px-3 py-2 rounded-xl border focus:outline-none w-full"
             />
-            <Button isLoading={loading} isDisabled={loading} type="submit" color="primary">
+            <Button
+              isLoading={loading}
+              isDisabled={loading}
+              type="submit"
+              color="secondary"
+            >
               Sign Up
             </Button>
           </form>
           <div className="flex justify-between">
             <Link href={"/login"}>
-              <button className="font-semibold text-sm text-blue-700">
+              <button className="font-semibold text-sm text-violet-700">
                 Already user? Sign In
               </button>
             </Link>

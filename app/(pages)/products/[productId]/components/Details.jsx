@@ -1,12 +1,13 @@
 "use client";
 import AddToCartButton from "@/app/components/AddToCartButton";
 import FavoriteButton from "@/app/components/FavoriteButton";
+import LoginModal from "@/app/components/LoginModal";
 import MyRating from "@/app/components/MyRating";
-import AuthContextProvider from "@/contexts/AuthContext";
+import AuthContextProvider, { useAuth } from "@/contexts/AuthContext";
 import { getBrand } from "@/lib/firestore/brands/read_server";
 import { getCategory } from "@/lib/firestore/categories/read_server";
 import { getProductReviewsCount } from "@/lib/firestore/products/count/read";
-import { Button } from "@heroui/react";
+import { button, Button, useDisclosure } from "@heroui/react";
 import { Rating } from "@mui/material";
 import { Heart } from "lucide-react";
 import Link from "next/link";
@@ -33,29 +34,30 @@ const Details = ({ product }) => {
         </span>
       </h3>
       <div className="flex items-center gap-4 flex-wrap">
-        <Link href={`/checkout?type=buynow&productId=${product.id}`}>
-          <button
-            variant="solid"
-            className="bg-black text-white rounded-lg px-4 py-1.5 "
-          >
-            Buy Now
+        {product?.stock <= (product?.orders || 0) ? (
+          <button className="bg-red-500 text-white rounded-lg px-4 py-1.5">
+            Out of Stock
           </button>
-        </Link>
-        <AuthContextProvider>
-          <AddToCartButton type={"small"} productId={product.id} />
-        </AuthContextProvider>
+        ) : (
+          <>
+            <Link href={`/checkout?type=buynow&productId=${product.id}`}>
+              <button
+                className="bg-violet-500 text-white rounded-lg px-4 py-1.5 "
+                disabled
+              >
+                Buy Now
+              </button>
+            </Link>
+            <AuthContextProvider>
+              <AddToCartButton type={"small"} productId={product.id} />
+            </AuthContextProvider>
+          </>
+        )}
 
         <AuthContextProvider>
           <FavoriteButton productId={product.id} />
         </AuthContextProvider>
       </div>
-      {product?.stock <= (product?.orders || 0 ) && (
-        <div className="flex">
-          <h3 className="text-red-500 px-4 py-1 rounded-lg text-sm font-semibold">
-            Out Of Stock
-          </h3>
-        </div>
-      )}
       <div className="flex flex-col gap-2 py-2">
         <div
           className="text-gray-600"
@@ -82,12 +84,14 @@ const Category = async ({ categoryId }) => {
 const Brand = async ({ brandId }) => {
   const brand = await getBrand(brandId);
   return (
-    <div className="flex items-center gap-1  border px-3 py-1 rounded-full">
-      <img src={brand.imageURL} className="h-4 " alt={brand.name} />
-      <h4 className="text-sm font-semibold">
-        {brand?.name ?? "Uncategorized"}
-      </h4>
-    </div>
+    <Link href={`/brands/${brand.id}`}>
+      <div className="flex items-center gap-1  border px-3 py-1 rounded-full">
+        <img src={brand.imageURL} className="h-4 " alt={brand.name} />
+        <h4 className="text-sm font-semibold">
+          {brand?.name ?? "Uncategorized"}
+        </h4>
+      </div>
+    </Link>
   );
 };
 
