@@ -230,7 +230,6 @@ export function useGetProductsByLikeandOrder(userId) {
   const { data, error } = useSWRSubscription(
     userId ? ["products-like", userId] : null,
     ([path, userId], { next }) => {
-      // Remove async from here
       const fetchRelatedProducts = async () => {
         try {
           const userDoc = await getDoc(doc(db, `users/${userId}`));
@@ -249,15 +248,12 @@ export function useGetProductsByLikeandOrder(userId) {
 
           const relatedProducts = [];
           const seenProductIds = new Set();
-
-          // Get original products
           const originalProducts = await Promise.all(
             favorites.map(async (id) => {
               const data = await getDoc(doc(db, `products/${id}`));
               return data.exists() ? { id: data.id, ...data.data() } : null;
             })
           );
-          // Collect unique categoryIds và brandIds
           const categoryIds = [
             ...new Set(
               originalProducts.filter((p) => p).map((p) => p.categoryId)
@@ -267,10 +263,7 @@ export function useGetProductsByLikeandOrder(userId) {
           const brandIds = [
             ...new Set(originalProducts.filter((p) => p).map((p) => p.brandId)),
           ];
-
-          // Get products by category and brand in parallel
           const [categoryProducts, brandProducts] = await Promise.all([
-            // Get products by categories
             Promise.all(
               categoryIds.map((categoryId) =>
                 getDocs(
@@ -282,7 +275,6 @@ export function useGetProductsByLikeandOrder(userId) {
                 )
               )
             ),
-            // Get products by brands
             Promise.all(
               brandIds.map((brandId) =>
                 getDocs(
@@ -296,7 +288,6 @@ export function useGetProductsByLikeandOrder(userId) {
             ),
           ]);
 
-          // Process category results
           categoryProducts.forEach((snapshot) => {
             snapshot.docs.forEach((snap) => {
               const productId = snap.id;
@@ -321,7 +312,6 @@ export function useGetProductsByLikeandOrder(userId) {
             });
           });
 
-          // Process brand results
           brandProducts.forEach((snapshot) => {
             snapshot.docs.forEach((snap) => {
               const productId = snap.id;
@@ -353,12 +343,9 @@ export function useGetProductsByLikeandOrder(userId) {
         }
       };
 
-      // Call the async function
       fetchRelatedProducts();
 
-      // Return unsubscribe function (required by useSWRSubscription)
       return () => {
-        // No cleanup needed for one-time fetch
         console.log("Cleanup for products-like subscription");
       };
     }

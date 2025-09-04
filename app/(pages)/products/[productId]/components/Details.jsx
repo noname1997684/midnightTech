@@ -1,17 +1,14 @@
 "use client";
 import AddToCartButton from "@/app/components/AddToCartButton";
 import FavoriteButton from "@/app/components/FavoriteButton";
-import LoginModal from "@/app/components/LoginModal";
-import MyRating from "@/app/components/MyRating";
-import AuthContextProvider, { useAuth } from "@/contexts/AuthContext";
-import { getBrand } from "@/lib/firestore/brands/read_server";
-import { getCategory } from "@/lib/firestore/categories/read_server";
-import { getProductReviewsCount } from "@/lib/firestore/products/count/read";
-import { button, Button, useDisclosure } from "@heroui/react";
-import { Rating } from "@mui/material";
-import { Heart } from "lucide-react";
+
+import AuthContextProvider from "@/contexts/AuthContext";
+
 import Link from "next/link";
 import React, { Suspense } from "react";
+import Category from "./Category";
+import Brand from "./Brand";
+import RatingReview from "./RatingReview";
 
 const Details = ({ product }) => {
   return (
@@ -28,9 +25,9 @@ const Details = ({ product }) => {
         {product.shortDescription}
       </h2>
       <h3 className="text-green-500 font-bold text-lg">
-        {product.salePrice}{" "}
+        {product.salePrice}${" "}
         <span className="line-through text-gray-700 text-sm">
-          {product.price}
+          {product.price}$
         </span>
       </h3>
       <div className="flex items-center gap-4 flex-wrap">
@@ -67,44 +64,4 @@ const Details = ({ product }) => {
     </div>
   );
 };
-
-const Category = async ({ categoryId }) => {
-  const category = await getCategory(categoryId);
-  return (
-    <Link href={`/categories/${category.id}`}>
-      <div className="flex items-center gap-1  border px-3 py-1 rounded-full">
-        <img src={category.imageURL} className="h-4 " alt={category.name} />
-        <h4 className="text-sm font-semibold">
-          {category?.name ?? "Uncategorized"}
-        </h4>
-      </div>
-    </Link>
-  );
-};
-const Brand = async ({ brandId }) => {
-  const brand = await getBrand(brandId);
-  return (
-    <Link href={`/brands/${brand.id}`}>
-      <div className="flex items-center gap-1  border px-3 py-1 rounded-full">
-        <img src={brand.imageURL} className="h-4 " alt={brand.name} />
-        <h4 className="text-sm font-semibold">
-          {brand?.name ?? "Uncategorized"}
-        </h4>
-      </div>
-    </Link>
-  );
-};
-
-async function RatingReview({ product }) {
-  const counts = await getProductReviewsCount(product?.id);
-  return (
-    <div className="flex gap-3 items-center">
-      <MyRating value={counts.averageRating || 0} />
-      <h1 className="text-sm text-gray-400">
-        <span>{counts.averageRating?.toFixed(1)}</span>({counts.totalreviews})
-      </h1>
-    </div>
-  );
-}
-
 export default Details;

@@ -75,8 +75,12 @@ const Sidebar = () => {
   return (
     <section className="sticky top-0 bg-white border-r gap-5 px-5 py-3 h-screen overflow-hidden w-[260px] z-50 flex flex-col  justify-between">
       <div className="flex justify-center py-4">
-        <Link href={"/"}>
-          <img className="h-8" src="/logo.png" alt="logo" />
+        <Link
+          href={"/"}
+          className="flex items-center gap-2 text-lg md:text-xl font-bold text-[#7900f5]"
+        >
+          <img className="h-8 md:h-8" src="/icon.png" alt="logo" />
+          <h1 className="hidden lg:block">MIDNIGHT TECH</h1>
         </Link>
       </div>
       <ul className="flex-1 flex h-full overflow-y-auto flex-col gap-4">

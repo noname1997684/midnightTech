@@ -161,16 +161,12 @@ const page = () => {
     setAILoading(true);
     try {
       const responses = {};
-
-      // Process each choice sequentially
       for (const choiceValue of choice) {
         const choiceConfig = choicesList.find(
           (item) => item.value === choiceValue
         );
         if (!choiceConfig) continue;
         let requestText = choiceConfig.request;
-
-        // Customize request for blog body to get article-like content
         if (choiceValue === "description") {
           requestText = `Write a complete blog article about: ${AIInput}
         
@@ -186,8 +182,6 @@ const page = () => {
         } else {
           requestText = `${choiceConfig.request} Topic: ${AIInput}`;
         }
-
-        // Create history for this specific request
 
         const requestOptions = {
           method: "POST",
@@ -236,11 +230,8 @@ const page = () => {
         }
       }
 
-      // Update response state with all results
-      console.log("All responses:", responses);
       toast.success("AI responses generated successfully!");
     } catch (error) {
-      console.error("Error generating responses:", error);
       toast.error("Failed to generate AI responses");
     } finally {
       setAILoading(false);
@@ -249,7 +240,6 @@ const page = () => {
   const cleanResponse = (text, choiceType) => {
     switch (choiceType) {
       case "title":
-        // Remove common prefixes for titles
         return text
           .replace(/^(Title|Blog Title):\s*/i, "")
           .replace(/^Here's a title:\s*/i, "")
@@ -259,7 +249,6 @@ const page = () => {
           .replace(/^Option:\s*/i, "")
           .trim();
       case "short-description":
-        // Remove common prefixes for short descriptions
         return text
           .replace(/^(Short Description|Description):\s*/i, "")
           .replace(/^Here's a short description:\s*/i, "")
@@ -268,16 +257,15 @@ const page = () => {
           .trim();
 
       case "description":
-        // Remove common prefixes for descriptions
         return text
           .replace(/^(Product Description|Description):\s*/i, "")
           .replace(/^Here's a detailed description:\s*/i, "")
           .replace(/^Full Description:\s*/i, "")
           .replace(/^Detailed Product Description:\s*/i, "")
-          .replace(/^```html\s*/i, "") // Remove opening ```html
-          .replace(/```\s*$/i, "") // Remove closing ```
-          .replace(/^```\s*/i, "") // Remove any other opening ```
-          .replace(/```$/i, "") // Remove any other closing ```
+          .replace(/^```html\s*/i, "")
+          .replace(/```\s*$/i, "")
+          .replace(/^```\s*/i, "")
+          .replace(/```$/i, "")
           .trim();
       default:
         return text;

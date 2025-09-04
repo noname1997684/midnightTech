@@ -20,7 +20,7 @@ export const metadata = {
   description:
     "An E Commerce Website built with Next.js, React, and Tailwind CSS",
   icons: {
-    icon: "/icon.png", // favicon mặc định
+    icon: "/icon.png",
     shortcut: "/icon.png",
   },
 };

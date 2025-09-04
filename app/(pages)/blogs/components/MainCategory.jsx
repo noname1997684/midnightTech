@@ -48,8 +48,6 @@ const MainCategory = () => {
     } else {
       params.set("f", query);
     }
-
-    // Navigate to the new URL with updated query params
     router.push(`${pathname}?${params.toString()}`);
   };
   return (

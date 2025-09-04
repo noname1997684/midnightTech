@@ -6,7 +6,6 @@ const EmailSection = () => {
   const [email, setEmail] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle email submission logic here
     toast.success("Email submitted");
     setEmail("");
   };

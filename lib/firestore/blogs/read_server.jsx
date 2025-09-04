@@ -60,20 +60,20 @@ export const getBlogs = async ({
       collection(db, "blogs"),
       orderBy("timestampCreate", "desc"),
       where("category", "==", category),
-      limit(pageLimit + 1) // Lấy thêm 1 để kiểm tra có trang tiếp theo
+      limit(pageLimit + 1)
     );
   } else if (searchQuery) {
     q = query(
       collection(db, "blogs"),
       orderBy("timestampCreate", "desc"),
       where("title", "array-contains", searchQuery),
-      limit(pageLimit + 1) // Lấy thêm 1 để kiểm tra có trang tiếp theo
+      limit(pageLimit + 1)
     );
   } else {
     q = query(
       collection(db, "blogs"),
       orderBy("timestampCreate", "desc"),
-      limit(pageLimit + 1) // Lấy thêm 1 để kiểm tra có trang tiếp theo
+      limit(pageLimit + 1)
     );
   }
   if (lastSnapDoc) {

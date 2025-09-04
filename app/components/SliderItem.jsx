@@ -15,7 +15,7 @@ const SliderItem = ({ product }) => {
   const { user } = useAuth();
   return (
     <div>
-      <div className="flex flex-col-reverse md:flex-row gap-4 bg-[#f8f8f8] p-5 md:px-24 md:py-20 w-full">
+      <div className="flex flex-col-reverse min-[940px]:flex-row gap-4 bg-[#f8f8f8] p-5 min-[940px]:px-24 min-[940px]:py-20 w-full">
         <div className="flex-1 flex flex-col md:gap-10 gap-4">
           <h2 className="text-gray-500 text-xs md:text-base">
             Featured Product
@@ -57,7 +57,7 @@ const SliderItem = ({ product }) => {
               </span>
             </h2>
           </div>
-          <div className="flex items-center gap-10 w-full">
+          <div className="flex flex-row items-center gap-10 w-full ">
             <CategoryItem categoryId={product.categoryId} />
             <BrandItem brandId={product.brandId} />
           </div>
@@ -72,7 +72,7 @@ const SliderItem = ({ product }) => {
               className="absolute  bottom-0 left-0  flex-col justify-center items-center"
             >
               <img
-                className="md:h-[23rem] h-[14rem] "
+                className="h-[23rem]"
                 src={product.featureImageURL}
                 alt={product.title}
               />

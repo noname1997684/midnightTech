@@ -12,8 +12,8 @@ const Comment = ({ comment }) => {
         <span className="font-medium">{comment?.displayName}</span>
         <span className="text-sm text-gray-500">
           {" "}
-          {comment?.timestampCreate
-            ? formatDistanceToNow(new Date(comment?.timestampCreate), {
+          {comment?.timestamp
+            ? formatDistanceToNow(new Date(comment?.timestamp), {
                 addSuffix: true,
               })
             : "Unknown date"}

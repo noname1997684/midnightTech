@@ -77,7 +77,7 @@ export const getProductsByCategory = async (
     collection(db, "products"),
     orderBy("timestampCreate", "desc"),
     where("categoryId", "==", categoryId),
-    limit(pageLimit + 1) // Lấy thêm 1 để kiểm tra có trang tiếp theo
+    limit(pageLimit + 1)
   );
 
   if (lastSnapDoc) {
@@ -113,7 +113,7 @@ export const getProductsByBrands = async (
     collection(db, "products"),
     orderBy("timestampCreate", "desc"),
     where("brandId", "==", brandId),
-    limit(pageLimit + 1) // Lấy thêm 1 để kiểm tra có trang tiếp theo
+    limit(pageLimit + 1)
   );
 
   if (lastSnapDoc) {
