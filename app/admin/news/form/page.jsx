@@ -20,9 +20,11 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const page = () => {
   const { user } = useAuth();
   const { data: userData } = useUser(user?.uid);
