@@ -6,9 +6,9 @@ import { CircularProgress } from "@heroui/react";
 
 const page = () => {
   const { user } = useAuth();
-  const { data: orders, error, isLoading } = useOrders(user?.uid);
+  const { data: orders, error, isLoading } = useOrders(user?.uid ?? null);
 
-  if (isLoading) {
+  if (isLoading || !user || !user.uid) {
     return (
       <div className="flex items-center justify-center h-screen">
         <CircularProgress />

@@ -15,7 +15,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
         <div className=" flex items-center gap-4">
           <h1 className="font-semibold lg:text-lg">01.</h1>
           <Link
-            href={`/blogs/${featuredPosts[0]?.id}`}
+            href={`/news/${featuredPosts[0]?.id}`}
             className="text-violet-800 lg:text-lg"
           >
             {featuredPosts[0]?.category.charAt(0).toUpperCase() +
@@ -31,7 +31,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
           </span>
         </div>
         <Link
-          href={`/blogs/${featuredPosts[0]?.id}`}
+          href={`/news/${featuredPosts[0]?.id}`}
           className="text-xl lg:text-3xl font-semibold lg:font-bold "
         >
           {featuredPosts[0]?.title ||
@@ -51,7 +51,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
             <div className="flex items-center gap-4 text-sm lg:text-base mb-4">
               <h1 className="font-semibold">02.</h1>
               <Link
-                href={`/blogs/${featuredPosts[1]?.id}`}
+                href={`/news/${featuredPosts[1]?.id}`}
                 className="text-violet-800"
               >
                 {featuredPosts[1]?.category.charAt(0).toUpperCase() +
@@ -67,7 +67,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
               </span>
             </div>
             <Link
-              href={`/blogs/${featuredPosts[1]?.id}`}
+              href={`/news/${featuredPosts[1]?.id}`}
               className="text-base sm:text-lg md:text-2xl lg:text-xl xl:text-2xl font-medium"
             >
               {featuredPosts[1]?.title ||
@@ -87,7 +87,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
             <div className="flex items-center gap-4 text-sm lg:text-base mb-4">
               <h1 className="font-semibold">03.</h1>
               <Link
-                href={`/blogs/${featuredPosts[2]?.id}`}
+                href={`/news/${featuredPosts[2]?.id}`}
                 className="text-violet-800"
               >
                 {featuredPosts[2]?.category.charAt(0).toUpperCase() +
@@ -103,7 +103,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
               </span>
             </div>
             <Link
-              href={`/blogs/${featuredPosts[2]?.id}`}
+              href={`/news/${featuredPosts[2]?.id}`}
               className="text-base sm:text-lg md:text-2xl lg:text-xl xl:text-2xl font-medium"
             >
               {featuredPosts[2]?.title ||
@@ -124,7 +124,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
             <div className="flex items-center gap-4 text-sm lg:text-base mb-4">
               <h1 className="font-semibold">04.</h1>
               <Link
-                href={`/blogs/${featuredPosts[3]?.id}`}
+                href={`/news/${featuredPosts[3]?.id}`}
                 className="text-violet-800"
               >
                 {featuredPosts[3]?.category.charAt(0).toUpperCase() +
@@ -140,7 +140,7 @@ const FeaturedPosts = async ({ featuredPosts }) => {
               </span>
             </div>
             <Link
-              href={`/blogs/${featuredPosts[3]?.id}`}
+              href={`/news/${featuredPosts[3]?.id}`}
               className="text-base sm:text-lg md:text-2xl lg:text-xl xl:text-2xl font-medium"
             >
               {featuredPosts[3]?.title ||

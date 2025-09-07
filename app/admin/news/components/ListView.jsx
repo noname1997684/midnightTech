@@ -122,20 +122,20 @@ function Row({ blog, index }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this blog?")) return;
+    if (!confirm("Are you sure you want to delete this news?")) return;
     setLoading(true);
     try {
       await deleteBlog(blog.id);
-      toast.success("Blog deleted successfully");
+      toast.success("News deleted successfully");
     } catch (error) {
-      toast.error("Failed to delete blog:" + " " + error.message);
+      toast.error("Failed to delete news:" + " " + error.message);
     } finally {
       setLoading(false);
     }
   };
 
   const handleUpdate = () => {
-    router.push(`/admin/blogs/form?id=${blog.id}`);
+    router.push(`/admin/news/form?id=${blog.id}`);
   };
   return (
     <tr>

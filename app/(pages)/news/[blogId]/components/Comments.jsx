@@ -11,7 +11,6 @@ import LoginModal from "@/app/components/LoginModal";
 
 const Comments = ({ blogId }) => {
   const { data } = useReviewsBlog(blogId);
-  console.log(data);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { user } = useAuth();

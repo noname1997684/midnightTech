@@ -8,7 +8,7 @@ import React from "react";
 const CountMeter = () => {
   const { data: totalProduct } = useProductsCount();
   const { data: totalUser } = useUsersCount();
-  const {data: ordersCount} = useOrdersCount();
+  const { data: ordersCount } = useOrdersCount();
   return (
     <section className="grid grid-cols-2 md:grid-cols-4 gap-5">
       <Card
@@ -16,8 +16,16 @@ const CountMeter = () => {
         title={"Products"}
         value={totalProduct || 0}
       />
-      <Card imageURL={"/order.png"} title={"Orders"} value={ordersCount?.totalOrders || 0} />
-      <Card imageURL={"/revenue.png"} title={"Revenue"} value={`$ ${ordersCount?.totalRevenue || 0}`} />
+      <Card
+        imageURL={"/order.png"}
+        title={"Orders"}
+        value={ordersCount?.totalOrders || 0}
+      />
+      <Card
+        imageURL={"/revenue.png"}
+        title={"Revenue"}
+        value={`$ ${(ordersCount?.totalRevenue / 100).toFixed(2) || 0}`}
+      />
       <Card
         imageURL={"/customer.png"}
         title={"Customers"}

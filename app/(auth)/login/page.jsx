@@ -46,10 +46,13 @@ const page = () => {
   return (
     <main className="w-full flex justify-center items-center bg-gray-300 md:p-24 p-10 min-h-screen">
       <section className="flex flex-col gap-3">
-        <div className="flex items-center justify-center gap-2 text-xl font-bold text-[#7900f5]">
+        <Link
+          href={"/"}
+          className="flex items-center justify-center gap-2 text-xl font-bold text-[#7900f5]"
+        >
           <img className="h-12" src="/icon.png" alt="logo" />
           <h1 className="">MIDNIGHT TECH</h1>
-        </div>
+        </Link>
         <div className="flex flex-col gap-3 bg-white md:p-10 p-5 rounded-xl md:min-w-[440px] w-full">
           <h1 className="font-bold text-xl">Login with Email</h1>
           <form

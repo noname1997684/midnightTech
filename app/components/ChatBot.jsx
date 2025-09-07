@@ -5,15 +5,21 @@ import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ChatForm from "./ChatForm";
 import ChatMessage from "./ChatMessage";
-import { companyInfo } from "@/public/companyInfo";
+import { companyInfo, WebsiteWorkFlow } from "@/public/companyInfo";
 const ChatBot = ({ products, blogs, brands, categories, collections }) => {
   const prompt = `${companyInfo} 
+  ${WebsiteWorkFlow}
   Here another data that you can use to answer the user's questions:
   Products: ${JSON.stringify(products)}
   Blogs: ${JSON.stringify(blogs)}
   Brands: ${JSON.stringify(brands)}
   Categories: ${JSON.stringify(categories)}
   Collections: ${JSON.stringify(collections)}
+  To calculate the remaining stock, subtract the number of orders (if any) from the stock quantity.
+  if stock subtract orders is 0 or less than 0, say that the product is out of stock.
+  If you the question is not related to the above data, politely inform the user that you are unable to assist with that particular inquiry.
+  If you don't know the answer, tell the user to contact customer support for further assistance, the email is midnighttechsupport@gmail.com or call +84123456789.
+  Remember to answer in a friendly and professional manner, providing accurate and helpful information to enhance the user's experience.
   `;
   const [chatHistory, setChatHistory] = useState([
     {

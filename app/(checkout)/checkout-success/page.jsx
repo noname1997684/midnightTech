@@ -93,7 +93,7 @@ const page = async ({ searchParams }) => {
           <span className="font-bold text-green-600">Succesfully</span> Placed
         </h1>
         <div className="flex items-center gap-4 text-sm">
-          <Link href={"/account"}>
+          <Link href={"/account/orders"}>
             <button className="text-violet-600 border border-violet-600 px-5 py-2 rounded-lg bg-white hover:bg-violet-500 hover:text-white transition-all duration-300">
               Go to Orders Page
             </button>

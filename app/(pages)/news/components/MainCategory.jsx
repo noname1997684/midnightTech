@@ -89,7 +89,7 @@ const MainCategory = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              router.push(`/blogs/search?s=${encodeURIComponent(searchQuery)}`);
+              router.push(`/news/search?s=${encodeURIComponent(searchQuery)}`);
             }
           }}
         />

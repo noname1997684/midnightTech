@@ -34,7 +34,7 @@ const page = async ({ searchParams }) => {
           Home
         </Link>
         <span>•</span>
-        <span className="text-violet-700">Blog and Articles</span>
+        <span className="text-violet-700">News and Articles</span>
       </div>
       <div className="flex items-center justify-between">
         <div>
@@ -89,8 +89,8 @@ const page = async ({ searchParams }) => {
       <div>
         <h1 className="my-8 text-2xl font-bold">
           {f === null
-            ? "Recent Posts"
-            : f.charAt(0).toUpperCase() + f.slice(1) + " Posts"}
+            ? "Recent News"
+            : f.charAt(0).toUpperCase() + f.slice(1) + " News"}
         </h1>
         <PostList initialBlogs={initialBlogs} />
       </div>

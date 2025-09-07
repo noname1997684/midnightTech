@@ -31,7 +31,6 @@ const Checkout = ({ producList }) => {
     state: userData?.address?.state || "",
     orderNote: userData?.address?.orderNote || "",
   });
-  console.log(userData);
   const totalPrice = producList.reduce((acc, item) => {
     return acc + item.product.salePrice * item.quantity;
   }, 0);

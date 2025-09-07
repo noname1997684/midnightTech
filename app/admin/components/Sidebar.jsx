@@ -62,8 +62,8 @@ const Sidebar = () => {
       icon: <Library />,
     },
     {
-      name: "blogs",
-      link: "/admin/blogs",
+      name: "News",
+      link: "/admin/news",
       icon: <FileImage />,
     },
     {

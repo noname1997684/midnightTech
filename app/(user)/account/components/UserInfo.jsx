@@ -2,10 +2,11 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { useGetOrdersCountByUser } from "@/lib/firestore/orders/read_count";
 import { useUser } from "@/lib/firestore/user/read";
-import { Divider } from "@heroui/react";
+import { Avatar, Divider } from "@heroui/react";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import React from "react";
+import { User2Icon } from "lucide-react";
 
 const UserInfo = () => {
   const { user } = useAuth();
@@ -16,10 +17,12 @@ const UserInfo = () => {
       <div className="flex items-center justify-between gap-4 p-5 flex-1">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full overflow-hidden">
-            <img
+            <Avatar
               src={userData?.photoURL}
-              alt=""
-              className="object-cover w-full h-full"
+              name={userData?.displayName}
+              className="object-cover w-full h-full rounded-full bg-gray-300"
+              showFallback
+              fallback={<User2Icon fontSize={64} size={64} />}
             />
           </div>
           <div>

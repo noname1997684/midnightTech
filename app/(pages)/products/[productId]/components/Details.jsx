@@ -40,7 +40,7 @@ const Details = ({ product }) => {
             <Link href={`/checkout?type=buynow&productId=${product.id}`}>
               <button
                 className="bg-violet-500 text-white rounded-lg px-4 py-1.5 "
-                disabled
+                disabled={product?.stock <= (product?.orders || 0)}
               >
                 Buy Now
               </button>

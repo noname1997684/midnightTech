@@ -20,7 +20,7 @@ const page = async ({ searchParams }) => {
           Home
         </Link>
         <span>•</span>
-        <span className="text-violet-700">Blog and Articles</span>
+        <span className="text-violet-700">News and Articles</span>
       </div>
       <SearchInput />
       <h1>

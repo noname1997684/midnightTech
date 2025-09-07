@@ -12,10 +12,10 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const menuList = [
     { name: "Home", link: "/" },
-    { name: "Products", link: "/products" },
+    { name: "Shop", link: "/shop" },
     { name: "About", link: "/about-us" },
     { name: "Contact", link: "/contact-us" },
-    { name: "Blogs", link: "/blogs" },
+    { name: "News", link: "/news" },
   ];
   return (
     <nav className="z-50 bg-white bg-opacity-65 backdrop-blur-2xl sticky top-0 py-2 px-4 md:py-4 md:px-16 border-b flex items-center justify-between">

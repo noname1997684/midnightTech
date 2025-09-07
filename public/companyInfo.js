@@ -12,3 +12,12 @@ Company Details:
     - Instagram: [Midnight Tech Instagram](https://www.instagram.com/midnighttech.vn)
     For any inquiries or support, feel free to reach out to us via email at admin@gmail.com or call us at +84 123 456 789. Our team is available to assist you with any questions or concerns you may have.  
     `;
+
+export const WebsiteWorkFlow = `
+To make a purchase, customers can either click the “Buy Now” button or add the product to their shopping cart.
+If they choose “Buy Now”, they will be redirected directly to the checkout page.
+For payment, customers first need to enter their shipping address (which can also be saved in advance in their profile).
+There are two payment options available:
+Cash on delivery (pay at home)
+Credit card payment via Stripe – if this option is selected, the customer will need to enter their card details securely through Stripe.
+`;

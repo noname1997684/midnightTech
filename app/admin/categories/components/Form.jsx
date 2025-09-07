@@ -2,7 +2,10 @@
 
 import useGetPicture from "@/hooks/useGetPicture";
 import { getCategory } from "@/lib/firestore/categories/read_server";
-import { createNewcategory, updateCategory } from "@/lib/firestore/categories/write";
+import {
+  createNewcategory,
+  updateCategory,
+} from "@/lib/firestore/categories/write";
 import { Button } from "@heroui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -47,7 +50,6 @@ const Form = () => {
       toast.success("Category created successfully");
       setData(null);
       setPicURL(null);
-      
     } catch (error) {
       toast.error("Error creating category:", error.message);
     } finally {
@@ -75,10 +77,9 @@ const Form = () => {
         className="flex flex-col gap-3"
         onSubmit={(e) => {
           e.preventDefault();
-          if(id){
+          if (id) {
             handleUpdate();
-          }else{
-
+          } else {
             handleCreate();
           }
         }}
@@ -93,7 +94,7 @@ const Form = () => {
             </div>
           )}
           <input
-          required
+            required
             onChange={handlePicChange}
             id="category-image"
             name="category-image"
@@ -107,7 +108,7 @@ const Form = () => {
             Name <span className="text-red-500">*</span>
           </label>
           <input
-          required
+            required
             id="category-name"
             name="category-name"
             type="text"
@@ -122,7 +123,7 @@ const Form = () => {
             Slug <span className="text-red-500">*</span>
           </label>
           <input
-          required
+            required
             id="category-slug"
             name="category-slug"
             type="text"
@@ -133,7 +134,7 @@ const Form = () => {
           />
         </div>
         <Button type="submit" isLoading={loading} isDisabled={loading}>
-          {id?"Update":"Create"}
+          {id ? "Update" : "Create"}
         </Button>
       </form>
     </div>

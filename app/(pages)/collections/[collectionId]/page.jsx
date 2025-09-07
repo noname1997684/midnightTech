@@ -9,9 +9,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${collection?.title} | collection`,
-    description:
-      collection?.subTitle ??
-      "An E Commerce Website built with Next.js, React, and Tailwind CSS",
+    description: collection?.subTitle ?? "Midnigt Tech",
     openGraph: {
       images: [collection?.imageURL],
     },

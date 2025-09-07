@@ -111,7 +111,11 @@ const page = async ({ params }) => {
             {categories.map((category) => (
               <Link
                 key={category.query}
-                href={`/blogs?category=${category.query}`}
+                href={
+                  category.name === "All Posts"
+                    ? "/news"
+                    : `/news?f=${category.query}`
+                }
                 className="underline"
               >
                 {category.name}

@@ -52,7 +52,6 @@ export function useProducts(pageLimit, lastSnapDoc) {
   };
 }
 export function useProductsFilter(filter, pageLimit, lastSnapDoc) {
-  console.log("Products Filter:", filter);
   const { data, error } = useSWRSubscription(
     ["products", filter, pageLimit, lastSnapDoc],
     ([path, filter, pageLimit, lastSnapDoc], { next }) => {
@@ -164,7 +163,6 @@ export function useProductsFilter(filter, pageLimit, lastSnapDoc) {
       return () => unsub();
     }
   );
-  console.log("Products Filter Data:", data);
   return {
     data: data?.list,
     lastSnapDoc: data?.lastSnapDoc,
@@ -335,7 +333,6 @@ export function useGetProductsByLikeandOrder(userId) {
               }
             });
           });
-          console.log("Related Products:", relatedProducts);
           next(null, relatedProducts);
         } catch (error) {
           console.error("Error fetching related products:", error);

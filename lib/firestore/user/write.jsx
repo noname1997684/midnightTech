@@ -30,11 +30,6 @@ export const updateUser = async ({ uid, data, photoURL }) => {
         imageUrl = await updateImage(imageUrl, photoURL, "users");
       }
     }
-    console.log("Updating user:", {
-      uid: uid,
-      data: data,
-      photoURL: imageUrl,
-    });
     await updateDoc(doc(db, `users/${uid}`), {
       ...data,
       photoURL: imageUrl,
@@ -82,7 +77,6 @@ export const updateCarts = async (uid, list) => {
 };
 
 export const updateAddress = async ({ uid, data }) => {
-  console.log(data);
   await setDoc(
     doc(db, `users/${uid}`),
     {

@@ -1,7 +1,6 @@
 export async function POST(req) {
   try {
     const body = await req.json();
-    console.log("Request body from client:", body);
 
     const response = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
@@ -15,9 +14,7 @@ export async function POST(req) {
       }
     );
 
-    console.log("Gemini API status:", response.status);
     const data = await response.json();
-    console.log("Gemini API response:", data);
 
     return Response.json(data);
   } catch (error) {

@@ -47,7 +47,6 @@ const CartItems = ({ item, lastItem }) => {
 
         return product;
       });
-      console.log("newList", newList);
       await updateCarts(user?.uid, newList);
     } catch (error) {
       toast.error("Failed to update cart", error.message);

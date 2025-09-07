@@ -83,7 +83,7 @@ const PostList = ({ initialBlogs }) => {
     refetchData();
   }, [pageLimit, f, s]);
 
-  const fetchProducts = async (lastDocTimestamp = null) => {
+  const fetchBlogs = async (lastDocTimestamp = null) => {
     setIsLoading(true);
     try {
       let q;
@@ -152,7 +152,7 @@ const PostList = ({ initialBlogs }) => {
       setBlogs(fetchedBlogs.slice(0, pageLimit));
       setHasNextPage(fetchedBlogs.length > pageLimit);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching newss:", error);
     } finally {
       setIsLoading(false);
     }
@@ -164,7 +164,7 @@ const PostList = ({ initialBlogs }) => {
       newStack.push(lastBlog.timestampCreate);
       setLastSnapDocList(newStack);
 
-      await fetchProducts(lastBlog.timestampCreate);
+      await fetchBlogs(lastBlog.timestampCreate);
     }
   };
 
@@ -176,7 +176,7 @@ const PostList = ({ initialBlogs }) => {
 
       const lastTimestamp =
         newStack.length > 0 ? newStack[newStack.length - 1] : null;
-      await fetchProducts(lastTimestamp);
+      await fetchBlogs(lastTimestamp);
     }
   };
   if (isLoading)

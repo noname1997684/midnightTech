@@ -20,13 +20,11 @@ const Search = () => {
       </svg>
       <input
         type="text"
-        placeholder="Search a post..."
+        placeholder="Search a news..."
         className="bg-transparent focus:outline-none hover:outline-none"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            router.push(
-              `/blogs/search?s=${encodeURIComponent(e.target.value)}`
-            );
+            router.push(`/news/search?s=${encodeURIComponent(e.target.value)}`);
           }
         }}
       />

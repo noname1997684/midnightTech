@@ -16,16 +16,10 @@ export function useOrder(orderId) {
   const { data, error } = useSWRSubscription(
     ["orders", orderId],
     ([path, orderId], { next }) => {
-      const ref = doc(
-        db,`orders/${orderId}` 
-      );
+      const ref = doc(db, `orders/${orderId}`);
       const unsub = onSnapshot(
         ref,
-        (snapshot) =>
-          next(
-            null,
-            snapshot.exists() ? snapshot.data() : null
-          ),
+        (snapshot) => next(null, snapshot.exists() ? snapshot.data() : null),
         (err) => next(err, null)
       );
       return () => unsub();
@@ -38,6 +32,7 @@ export function useOrder(orderId) {
   return { data, error: error?.message, isLoading: data === undefined };
 }
 export function useOrders(uid) {
+  console.log("useOrders uid:", uid);
   const { data, error } = useSWRSubscription(
     ["orders", uid],
     ([path, uid], { next }) => {

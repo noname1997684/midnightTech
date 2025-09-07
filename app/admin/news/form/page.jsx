@@ -56,7 +56,7 @@ const page = () => {
     try {
       const res = await getBlog(id);
       if (!res) {
-        toast.error("Blog not found");
+        toast.error("News not found");
         return;
       } else {
         setData(res);
@@ -96,8 +96,8 @@ const page = () => {
         uid: user.uid,
       };
       await createNewBlog(blogData, featureImage);
-      toast.success("Blog created successfully");
-      router.push("/admin/blogs");
+      toast.success("News created successfully");
+      router.push("/admin/news");
     } catch (error) {
       toast.error(error.message || "Something went wrong");
     } finally {
@@ -130,8 +130,8 @@ const page = () => {
         uid: user.uid,
       };
       await updateBlog(blogData, featureImage);
-      toast.success("Blog updated successfully");
-      router.push("/admin/blogs");
+      toast.success("News updated successfully");
+      router.push("/admin/news");
     } catch (error) {
       toast.error(error.message || "Something went wrong");
     } finally {
@@ -144,17 +144,17 @@ const page = () => {
     {
       name: "Title",
       value: "title",
-      request: "Please provide a title for this blog:",
+      request: "Please provide a title for this news:",
     },
     {
       name: "Short Description",
       value: "short-description",
-      request: "Please provide a short description for this blog:",
+      request: "Please provide a short description for this news:",
     },
     {
-      name: "Blog Body",
+      name: "News Body",
       value: "description",
-      request: "Please provide a article body for this article:",
+      request: "Please provide a article body for this news:",
     },
   ];
   const generateBotResponse = async () => {
@@ -168,9 +168,9 @@ const page = () => {
         if (!choiceConfig) continue;
         let requestText = choiceConfig.request;
         if (choiceValue === "description") {
-          requestText = `Write a complete blog article about: ${AIInput}
-        
-        Please write in a professional blog style with:
+          requestText = `Write a complete news article about: ${AIInput}
+
+        Please write in a professional news style with:
         - Introduction paragraph
         - Multiple detailed sections with subheadings
         - Conclusion
@@ -214,7 +214,6 @@ const page = () => {
         let apiResponseText = apiData.candidates[0].content.parts[0].text
           .replace(/\*\*(.*?)\*\*/g, "$1")
           .trim();
-        console.log(`Response for ${choiceValue}:`, apiResponseText);
         apiResponseText = cleanResponse(apiResponseText, choiceValue);
         responses[choiceValue] = apiResponseText;
         switch (choiceValue) {
@@ -274,7 +273,7 @@ const page = () => {
   return (
     <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] flex flex-col gap-6 p-5 overflow-y-scroll">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-xl font-semibold">Create a New Post</h1>
+        <h1 className="text-xl font-semibold">Create a New News</h1>
         <Button
           isIconOnly
           radius="full"
@@ -290,15 +289,15 @@ const page = () => {
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1 items-center">
-                  Create New Blog With AI
+                  Create New News With AI
                 </ModalHeader>
                 <ModalBody>
                   <h1>
-                    How would you like AI to support you in creating your blog?
+                    How would you like AI to support you in creating your news?
                   </h1>
-                  <h1>Let we hear your thoughts</h1>
+                  <h1>Type what AI should know about the news</h1>
                   <Input
-                    label="Your Thoughts"
+                    label="Your Request"
                     value={AIInput}
                     onChange={(e) => setAIInput(e.target.value)}
                   />
@@ -370,7 +369,7 @@ const page = () => {
         )}
         <input
           type="text"
-          placeholder="My Awesome Story"
+          placeholder="Enter News Title"
           className="text-4xl font-semibold bg-transparent outline-none"
           name="title"
           value={data?.title || ""}
@@ -399,7 +398,7 @@ const page = () => {
               className="text-sm w-64"
               htmlFor="product-is-featured-product"
             >
-              Is Featured Blog<span className="text-red-500">*</span>
+              Is Featured News<span className="text-red-500">*</span>
             </label>
             <select
               required
@@ -457,9 +456,9 @@ const page = () => {
           isLoading={loading}
           isDisabled={loading}
           type="submit"
-          className="disabled:bg-blue-400 disabled:cursor-not-allowed bg-blue-800 text-white font-medium rounded-xl mt-4 p-2 w-36"
+          className="disabled:bg-violet-400 disabled:cursor-not-allowed bg-violet-700 text-white font-medium rounded-xl mt-4 p-2 w-36"
         >
-          {id ? "Update Post" : "Create Post"}
+          {id ? "Update News" : "Create News"}
         </Button>
       </form>
     </div>

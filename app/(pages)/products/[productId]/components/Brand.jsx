@@ -8,9 +8,7 @@ const Brand = async ({ brandId }) => {
     <Link href={`/brands/${brand.id}`}>
       <div className="flex items-center gap-1  border px-3 py-1 rounded-full">
         <img src={brand.imageURL} className="h-4 " alt={brand.name} />
-        <h4 className="text-sm font-semibold">
-          {brand?.name ?? "Uncategorized"}
-        </h4>
+        <h4 className="text-sm font-semibold">{brand?.name ?? "Unbranded"}</h4>
       </div>
     </Link>
   );

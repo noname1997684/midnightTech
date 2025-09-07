@@ -101,7 +101,6 @@ const page = () => {
         let apiResponseText = apiData.candidates[0].content.parts[0].text
           .replace(/\*\*(.*?)\*\*/g, "$1")
           .trim();
-        console.log(`Response for ${choiceValue}:`, apiResponseText);
         apiResponseText = cleanResponse(apiResponseText, choiceValue);
         responses[choiceValue] = apiResponseText;
         switch (choiceValue) {

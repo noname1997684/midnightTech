@@ -54,7 +54,6 @@ const page = () => {
   useEffect(() => {
     if (user?.uid) {
       fetchData();
-      console.log("User ID:", user.uid);
     }
   }, [user?.uid]);
   const handleUpdate = async () => {
@@ -128,7 +127,7 @@ const page = () => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <h1 className="font-bold text-lg">Date Of Birth</h1>
+            <h1 className="font-bold text-lg">Date of Birth</h1>
             <DatePicker
               isDisabled={!edit}
               value={data?.dateOfBirth ? parseDate(data.dateOfBirth) : null}

@@ -57,7 +57,6 @@ export function useBlog(blogId) {
       return () => unsub();
     }
   );
-  console.log(data);
   return {
     data: data
       ? {

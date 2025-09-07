@@ -76,7 +76,6 @@ export const updateProduct = async (data, featureImage, images) => {
   const isImagesChanged =
     images?.length !== data.imagesURLs?.length ||
     !images.every((img, i) => img === data.imagesURLs[i]);
-  console.log("isImagesChanged", isImagesChanged, images, data?.imagesURLs);
   if (isImagesChanged) {
     for (const image of data?.imagesURLs) {
       await deleteImage(image);

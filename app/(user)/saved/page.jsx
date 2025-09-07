@@ -1,6 +1,6 @@
 "use client";
 
-import PostListItem from "@/app/(pages)/blogs/components/PostListItem";
+import PostListItem from "@/app/(pages)/news/components/PostListItem";
 import { ProductCard } from "@/app/components/Products";
 import { useAuth } from "@/contexts/AuthContext";
 import { useBlog } from "@/lib/firestore/blogs/read";
