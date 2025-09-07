@@ -29,8 +29,7 @@ const page = () => {
     {
       name: "Price",
       value: "price",
-      request:
-        "Collect the market prices in of this product and suggest the most reasonable price:",
+      request: "suggest the most reasonable price of this product:",
     },
     {
       name: "Sales Price",
@@ -91,7 +90,7 @@ const page = () => {
 
         const response = await fetch("/api/chatbot", requestOptions);
         const apiData = await response.json();
-
+        console.log(`API response for ${choiceValue}:`, apiData);
         if (apiData.error) {
           console.error(`Error for ${choiceValue}:`, apiData.error);
           responses[choiceValue] = `Error: ${apiData.error}`;
