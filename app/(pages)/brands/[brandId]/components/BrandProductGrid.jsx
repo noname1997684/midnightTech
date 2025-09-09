@@ -133,7 +133,7 @@ const BrandProductGrid = ({ initialProducts, brandId, brandName }) => {
 
       {products.length === 0 ? (
         <div className=" flex flex-col items-center justify-center gap-2 text-center py-8 ">
-          <img src="../svg/empty.svg" alt="" />
+          <img src="../svg/Empty.svg" alt="" />
           <h1 className="text-lg font-semibold">
             No products found in this category
           </h1>

@@ -135,7 +135,7 @@ const CategoryProductGrid = ({ initialProducts, categoryId, categoryName }) => {
 
       {products.length === 0 ? (
         <div className=" flex flex-col gap-2 items-center justify-center text-center py-8 ">
-          <img src="../svg/empty.svg" alt="" />
+          <img src="../svg/Empty.svg" alt="" />
           <h1 className="text-lg font-semibold">
             No products found in this category
           </h1>

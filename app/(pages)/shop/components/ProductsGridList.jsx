@@ -51,7 +51,7 @@ const ProductsGridList = ({ filter }) => {
     return (
       <div className="bg-white p-5 rounded-xl flex-1 items-center flex-col justify-center flex">
         <img
-          src="../svg/empty.svg"
+          src="../svg/Empty.svg"
           alt="No products found"
           className="h-64 w-64"
         />
