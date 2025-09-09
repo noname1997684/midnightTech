@@ -42,4 +42,6 @@ export const addReviewsBlog = async ({
 export const deleteReview = async (uid, productId) => {
   const ref = doc(db, `products/${productId}/reviews/${uid}`);
   await deleteDoc(ref);
+  const blogRef = doc(db, `blogs/${productId}/reviews/${uid}`);
+  await deleteDoc(blogRef);
 };
